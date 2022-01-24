@@ -1,0 +1,13 @@
+{
+    "name": "whisper",
+    "autoload": {
+        "psr-4": {
+            "Whisper\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "clockw0rk"
+        }
+    ]
+}
