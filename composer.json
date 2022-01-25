@@ -1,4 +1,7 @@
 {
+    "require": {
+        "php": ">=8.0"
+    },
     "name": "whisper",
     "autoload": {
         "psr-4": {

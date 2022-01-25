@@ -10,6 +10,7 @@ class Content
     private string $permalink;
     private string $thumbnail;
     private string $tags;
+    private string $blogName;
 
     public function __construct
     (
@@ -18,7 +19,8 @@ class Content
         string $user,
         string $thumbnail,
         string $tags,
-        string $permalink
+        string $permalink,
+        string $blogName
     )
     {
         $this->content = $this->getSnippet($content);
@@ -27,6 +29,7 @@ class Content
         $this->thumbnail = $thumbnail;
         $this->permalink = $permalink;
         $this->tags = $tags;
+        $this->blogName = $blogName;
     }
 
     private function getSnippet(string $content):string
@@ -62,5 +65,10 @@ class Content
     public function getPermalink(): string
     {
         return $this->permalink;
+    }
+
+    public function getBlogName(): string
+    {
+        return $this->blogName;
     }
 }

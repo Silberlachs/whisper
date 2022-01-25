@@ -11,7 +11,7 @@
  * Plugin Name:       Whisper
  * Plugin URI:        http://clockwork.ddnss.org/
  * Description:       A discord whisper spell
- * Version:           Cockatoo-DC-01
+ * Version:           DuskyLory-DC-01
  * Requires at least: 5.2
  * Requires PHP:      7.4
  * Author:            clockw0rk

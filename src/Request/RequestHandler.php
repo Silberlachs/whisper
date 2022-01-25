@@ -8,31 +8,37 @@ class RequestHandler implements RequestHandlerInterface
 {
     public function sendMessage(string $messageBody):void
     {
-        //TODO: abfragen, ob username überschrieben wurde, falls nicht auf "default" setzen
         if(!get_option('whisper_options'))
         {
             exit("no configuration found!");
         }
         else
         {
-            $apiEndpoint = get_option('whisper_options');
+            $pluginConfig = get_option('whisper_options');
+            if(!array_key_exists('name_override',$pluginConfig) && $pluginConfig['name_override'] !== "")
+            {
+                $pluginConfig['name_override'] = wp_get_current_user();
+            }
         }
 
-        //returns Object of WP_Error on failure, array on success
-        $status = wp_remote_post( $apiEndpoint['discord_webhook'],
-            [
-                'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
-                'body'=>wp_json_encode(
-                    [
-                        "content" => $messageBody
-                    ] ),
-                'method' => 'POST',
-                'data_format' => 'body',
-            ]);
-
-        if(is_wp_error($status))
+        for($c = 0;$c<$pluginConfig['hook_counter']; $c++)
         {
-            throw new \Exception("Fehler beim Senden des Requests");
+
+            $postContent = wp_remote_post( $pluginConfig['discord_webhook' . $c],
+                [
+                    'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
+                    'body'=>wp_json_encode(
+                        [
+                            "content" => $messageBody,
+                        ] ),
+                    'method' => 'POST',
+                    'data_format' => 'body',
+                ]);
+
+            if(is_wp_error($postContent))
+            {
+                throw new \Exception($postContent);
+            }
         }
     }
 }

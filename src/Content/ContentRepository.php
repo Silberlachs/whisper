@@ -38,7 +38,8 @@ class ContentRepository implements ContentRepositoryInterface
             $options['name_override'] === "" ? wp_get_current_user()->user_login : $options['name_override'],
             $postImage,
             $tagString,
-            get_permalink($postId)
+            get_permalink($postId),
+            get_bloginfo('name'),
         );
     }
 
@@ -46,8 +47,7 @@ class ContentRepository implements ContentRepositoryInterface
     {
         $images = get_attached_media('image', $postId);
         foreach ($images as $image) {
-            $ximage = wp_get_attachment_image_src($image->ID, 'small');
-            return $ximage[0] ? $ximage[0] : "";   //ximage ist false wenn kein bild da ist
+            return $image->guid;
         }
         return "";
     }

@@ -16,20 +16,13 @@ class TemplateProvider implements TemplateProviderInterface
 
     public function getRequestBody(Content $content): string
     {
-        $thumbNail = $content->getThumbnail();
-
-        if($thumbNail !== "")
-        {
-            $thumbNail = '<img src="'.$thumbNail.'">';
-        }
-
         $template = str_replace("%TITLE%"     , $content->getTitle()       , $this->template);
         $template = str_replace("%USER%"      , $content->getUser()        , $template);
-        $template = str_replace("%THUMBNAIL%" , $thumbNail                 , $template);
+        $template = str_replace("%THUMBNAIL%" , $content->getThumbnail()   , $template);
         $template = str_replace("%CONTENT%"   , $content->getContent()     , $template);
         $template = str_replace("%LINK%"      , $content->getPermalink()   , $template);
         $template = str_replace("%TAGS%"      , $content->getTags()        , $template);
-        $template = str_replace("(more&hellip;)", ""                , $template);
+        $template = str_replace("%BLOGNAME%"  , $content->getBlogName()    , $template);
 
         return $template;
     }

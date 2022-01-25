@@ -20,7 +20,7 @@ class SettingsProvider
         if (!get_option('whisper_options')) {
             $this->options['hook_counter'] = 1;
             $this->options['discord_webhook0'] = "set discord webhook!";
-            $this->options['name_override'] = "leave blank for wp-username";
+            $this->options['name_override'] = "";
         } else {
             $this->options = get_option('whisper_options');
 

@@ -26,6 +26,5 @@ class WhisperMain
         $content = $this->contentRepository->loadContent($post_id);
         $template = $this->templateProvider->getRequestBody($content);
         $this->requestHandler->sendMessage($template);
-
     }
 }
