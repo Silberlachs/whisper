@@ -39,11 +39,11 @@ class SettingsProvider
     {
         // This page will be under "Settings"
         add_options_page(
-            'whisper_options',                              //page title
-            'Whisper Configuration',                       //menu title
-            'manage_options',                               //"capability" -> user rechte
-            'whisper_options',                             //menu -"slug" -> subdomain
-            [$this, 'pageBuilderCallback']                          //callback
+            'whisper_options',                                          //page title
+            'Whisper Configuration',                                    //menu title
+            'manage_options',                                           //"capability" -> user rights
+            'whisper_options',                                          //menu -"slug" -> subdomain
+            [$this, 'pageBuilderCallback']                              //callback
         );
     }
 
@@ -51,8 +51,8 @@ class SettingsProvider
     {
         echo $this->templateProvider->getOptionsPageTemplateHead();
 
-        settings_fields('whisper_option_group');         // param option group
-        do_settings_sections('whisper_options');               // param page
+        settings_fields('whisper_option_group');                        // param option group
+        do_settings_sections('whisper_options');                        // param page
         submit_button('Submit');
 
         echo $this->templateProvider->getOptionsPageTemplateTail();
@@ -61,46 +61,46 @@ class SettingsProvider
     public function page_init(): void
     {
         register_setting(
-            'whisper_option_group',                     // Option group
-            'whisper_options',                          // Option name
-            [$this, 'sanitize']                                  // array which should be registered
+            'whisper_option_group',                                     // Option group
+            'whisper_options',                                          // Option name
+            [$this, 'sanitize']                                         // array which should be registered
         );
 
         add_settings_section(
-            'whisper_section',                                  // ID
-            'Whisper Configuration Page',                      // Title
-            [$this, 'print_section_info'],                        // Callback
-            'whisper_options'                                 // Page
+            'whisper_section',                                          // ID
+            'Whisper Configuration Page',                               // Title
+            [$this, 'print_section_info'],                              // Callback
+            'whisper_options'                                           // Page
         );
 
         add_settings_field(
-            'hook_counter',                                  // ID
-            'Number of Webhooks',                          // Title
-            [$this, 'hook_counter_callback'],                 // Callback
-            'whisper_options',                             // Page
-            'whisper_section',                           // Section
-            ['insert' => 'hook_counter']                        // callback arguments
+            'hook_counter',                                             // ID
+            'Number of Webhooks',                                       // Title
+            [$this, 'hook_counter_callback'],                           // Callback
+            'whisper_options',                                          // Page
+            'whisper_section',                                          // Section
+            ['insert' => 'hook_counter']                                // callback arguments
         );
 
         for($i = 0; $i < $this->options['hook_counter']; $i++)
         {
             add_settings_field(
-                'discord_webhook'.$i,                           // ID
-                'Discord Webhook URI',                          // Title
-                [$this, 'discord_webhook_callback'],               // Callback
-                'whisper_options',                             // Page
-                'whisper_section',                           // Section
-                ['insert' => 'discord_webhook'.$i]                     // callback arguments
+                'discord_webhook'.$i,                                   // ID
+                'Discord Webhook URI',                                  // Title
+                [$this, 'discord_webhook_callback'],                    // Callback
+                'whisper_options',                                      // Page
+                'whisper_section',                                      // Section
+                ['insert' => 'discord_webhook'.$i]                      // callback arguments
             );
         }
 
         add_settings_field(
-            'name_override',                              // ID
-            'Display as',                               // Title
-            [$this, 'name_override_callback'],              // Callback
-            'whisper_options',                         // Page
-            'whisper_section',                       // Section
-            ['insert' => 'name_override']                   // callback arguments
+            'name_override',                                            // ID
+            'Display as',                                               // Title
+            [$this, 'name_override_callback'],                          // Callback
+            'whisper_options',                                          // Page
+            'whisper_section',                                          // Section
+            ['insert' => 'name_override']                               // callback arguments
         );
     }
 
